@@ -23,7 +23,7 @@
 
 
 using System.Window;
-using Stock.Trader.Settings;
+using Stock.Account.Settings;
 
 namespace StockTrader
 {

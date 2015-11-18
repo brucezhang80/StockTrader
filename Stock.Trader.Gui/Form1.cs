@@ -38,7 +38,8 @@ using Stock.Market;
 using System.Reflection;
 using System.Window;
 using Stock.Common;
-using Stock.Trader.Settings;
+using Stock.Account;
+using Stock.Account.Settings;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 
@@ -46,7 +47,7 @@ namespace StockTrader
 {
     public partial class Form1 : Form
     {
-        Stock.Trader.XiaDan xiadan = null;
+        Stock.Account.XiaDan xiadan = null;
         private System.Timers.Timer keepLoginTimer = new System.Timers.Timer();
       
         public Form1()
@@ -55,7 +56,7 @@ namespace StockTrader
             InitStrategyMenu();
             InitListView();
 
-            xiadan = Stock.Trader.XiaDan.Instance;
+            xiadan = Stock.Account.XiaDan.Instance;
         }
 
         private void _Start()
@@ -204,7 +205,7 @@ namespace StockTrader
         #region 测试下单
         private void button16_Click(object sender, EventArgs e)
         {
-            xiadan = Stock.Trader.XiaDan.Instance;
+            xiadan = Stock.Account.XiaDan.Instance;
             xiadan.Init();
         }
 
@@ -349,7 +350,7 @@ namespace StockTrader
 
             lvStockPosition.Items.Clear();
             TradingAccount account = (TradingAccount)this.xiadan.GetCashInfo().Result;
-            foreach (TradingAccount.StockHolderInfo shi in account.StockHolders)
+            foreach (StockHolderInfo shi in account.StockHolders)
             {
                 ListViewItem lvi = new ListViewItem(new string[] {shi.StockCode,
                     shi.StockName,
@@ -360,7 +361,7 @@ namespace StockTrader
                     shi.KeepCostPrice.ToString(),
                      shi.LastPrice.ToString(),
                      "0",
-                     shi.IncomeBalance.ToString(),
+                     shi.IncomeAmount.ToString(),
                      shi.MarketValue.ToString(),
                      shi.ExchangeName,
                      shi.StockAccount
